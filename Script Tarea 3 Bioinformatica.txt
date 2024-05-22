@@ -1,0 +1,53 @@
+
+#PROMEDIO con loop
+
+mtc <- data.frame(mtcars)
+> for (i in seq_len(ncol(mtc))) {
++     current_ncol <- mtc[,i]
++ }
+> prom <- colMeans(mtc)
+> 
+> print(prom)
+
+#HEATMAP
+
+data <- as.matrix(mtcars)
+heatmap(data)
+coul <- colorRampPalette(brewer.pal(8, "PiYG"))(25)
+heatmap(data, scale="column", col = coul)
+row_means <- rowMeans(data, na.rm = TRUE)
+
+
+#PCA
+
+#FORMA 1
+
+install.packages("tidyverse")
+library(tidyverse)
+PCA_cars<-prcomp(mtcars, scale=TRUE)
+PCA_cars
+
+
+#CORRELACIONES
+
+install.packages('corrplot')
+a_num <- function(df, columnas) {
+    for (col in columnas) {
+        df[[col]] <- as.numeric(df[[col]])
+    }
+    return(df)
+}
+#Se le asignan valores numéricos al contenido de las columnas del data frame
+	
+mtcars <- a_num(df = mtcars, columnas = c("cyl", "drat", "hp"))
+> CORmtcars <- a_num(df = mtcars, columnas = c("cyl", "drat", "hp"))
+> COR <- cor(mtcars[, c("cyl", "drat", "hp")])
+> #install.packages('corrplot')
+> corrplot(COR, method = "shade", type = "upper", tl.col = "black", tl.srt = 70) 
+#Se personaliza y muestra el grafico de correlaciones
+
+#ANOVA
+
+manova <- aov(mpg ~ cyl, data = mtcars)
+summary(manova)
+
